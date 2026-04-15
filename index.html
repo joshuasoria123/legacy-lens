@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legacy Lens — Free Pixar Breakdown</title>
+  <meta name="description" content="7 Hidden Details Pixar Didn't Want You To Find — free PDF breakdown for film theory fans." />
+  <style>
+    /* ── Reset & Base ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:    #0a0a0c;
+      --surface:  #111114;
+      --card:     #18181d;
+      --border:   #2a2a32;
+      --gold:     #c9a84c;
+      --gold-dim: #a07830;
+      --gold-glow:#c9a84c33;
+      --white:    #f0ece3;
+      --muted:    #8a8490;
+      --font:     'Georgia', 'Times New Roman', serif;
+      --mono:     'Courier New', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Film-grain overlay ─────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: .55;
+    }
+
+    /* ── Letterbox bars ─────────────────────────────────────── */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-dim));
+      z-index: 100;
+    }
+
+    /* ── Layout ─────────────────────────────────────────────── */
+    .wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ── Header / Brand ─────────────────────────────────────── */
+    header {
+      padding: 32px 20px 0;
+      text-align: center;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-size: .78rem;
+      color: var(--gold);
+      font-family: var(--mono);
+    }
+
+    .brand-icon {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 1.6;
+    }
+
+    /* ── Hero ───────────────────────────────────────────────── */
+    .hero {
+      padding: 52px 0 40px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: .72rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      opacity: .85;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 7vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -.01em;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--gold);
+      position: relative;
+    }
+
+    .hero h1 em::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .subhead {
+      font-size: clamp(1rem, 3.5vw, 1.15rem);
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 36px;
+      font-style: italic;
+      line-height: 1.7;
+    }
+
+    /* ── Opt-in Box (wraps the Beehiiv embed) ──────────────── */
+    .optin-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 24px 24px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .optin-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-dim));
+    }
+
+    .optin-label {
+      font-family: var(--mono);
+      font-size: .7rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    /* Make Beehiiv's iframe blend into our dark card */
+    .beehiiv-embed-wrap iframe {
+      display: block;
+      width: 100%;
+      border: none;
+      border-radius: 3px;
+      /* Beehiiv adds inline styles — these override them */
+      background: transparent !important;
+    }
+
+    .privacy-note {
+      font-size: .72rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 12px;
+      font-family: var(--mono);
+      letter-spacing: .05em;
+    }
+
+    /* ── Divider ────────────────────────────────────────────── */
+    .reel-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 48px 0 40px;
+      opacity: .35;
+    }
+
+    .reel-divider span {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .reel-holes {
+      display: flex;
+      gap: 6px;
+    }
+
+    .reel-holes i {
+      display: block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
+    /* ── Social Proof ───────────────────────────────────────── */
+    .social-proof {
+      margin-bottom: 52px;
+    }
+
+    .sp-header {
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .sp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sp-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold-dim);
+      border-radius: 3px;
+      padding: 14px 16px;
+    }
+
+    .sp-num {
+      font-family: var(--mono);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      white-space: nowrap;
+      min-width: 0;
+    }
+
+    .sp-text {
+      font-size: .9rem;
+      color: var(--muted);
+      font-style: italic;
+      align-self: center;
+    }
+
+    /* ── Footer ─────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 20px;
+      text-align: center;
+    }
+
+    .footer-brand {
+      font-family: var(--mono);
+      font-size: .72rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 8px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      font-size: .75rem;
+      font-family: var(--mono);
+      text-decoration: none;
+      letter-spacing: .08em;
+      transition: color .2s;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── Utilities ──────────────────────────────────────────── */
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ── Brand bar ──────────────────────────────────────── -->
+  <header>
+    <div class="brand">
+      <!-- Film reel icon -->
+      <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"/>
+        <circle cx="12" cy="12" r="3"/>
+        <circle cx="12" cy="5.5" r="1.2"/>
+        <circle cx="12" cy="18.5" r="1.2"/>
+        <circle cx="5.5" cy="12" r="1.2"/>
+        <circle cx="18.5" cy="12" r="1.2"/>
+        <circle cx="7.4" cy="7.4" r="1.2"/>
+        <circle cx="16.6" cy="16.6" r="1.2"/>
+        <circle cx="16.6" cy="7.4" r="1.2"/>
+        <circle cx="7.4" cy="16.6" r="1.2"/>
+      </svg>
+      Legacy Lens
+    </div>
+  </header>
+
+  <!-- ── Hero ───────────────────────────────────────────── -->
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <p class="eyebrow">Free breakdown — instant download</p>
+
+        <h1>7 Hidden Details Pixar<br>
+          <em>Didn't Want You To Find</em>
+        </h1>
+
+        <p class="subhead">
+          The Easter eggs the studios buried deep enough that 99% of viewers never notice — until now.
+        </p>
+
+        <!-- ── Beehiiv embed (hero opt-in) ────────────────── -->
+        <div class="optin-box">
+          <p class="optin-label">Get the free PDF breakdown</p>
+
+          <!--
+          ┌───────────────────────────────────────────────────┐
+          │  STEP 1 — paste your Beehiiv embed <iframe> here  │
+          │  Delete the placeholder div below and replace it  │
+          │  with the iframe from Beehiiv → Settings →        │
+          │  Email Capture Forms → Get Embed Code             │
+          │                                                    │
+          │  Recommended iframe height: 160 (email+button)    │
+          │  or 220 (email + first name + button)             │
+          └───────────────────────────────────────────────────┘
+          -->
+          <div class="beehiiv-embed-wrap">
+
+            <!-- ↓↓↓ REPLACE THIS WITH YOUR BEEHIIV IFRAME ↓↓↓ -->
+            <div style="background:var(--surface);border:2px dashed var(--border);border-radius:3px;padding:32px 20px;text-align:center;">
+              <p style="font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px;">Beehiiv embed here</p>
+              <p style="font-size:.82rem;color:var(--muted);font-style:italic;">
+                Beehiiv → Settings → Email Capture Forms → Get Embed Code<br>
+                Replace this &lt;div&gt; with your &lt;iframe&gt; tag.
+              </p>
+            </div>
+            <!-- ↑↑↑ REPLACE THIS WITH YOUR BEEHIIV IFRAME ↑↑↑ -->
+
+          </div>
+
+          <p class="privacy-note">No spam. Unsubscribe anytime.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Reel divider ────────────────────────────────── -->
+    <div class="wrap">
+      <div class="reel-divider" aria-hidden="true">
+        <span></span>
+        <div class="reel-holes"><i></i><i></i><i></i></div>
+        <span></span>
+        <div class="reel-holes"><i></i><i></i><i></i></div>
+        <span></span>
+      </div>
+    </div>
+
+    <!-- ── Social proof ────────────────────────────────── -->
+    <section class="social-proof" aria-label="Social proof">
+      <div class="wrap">
+        <p class="sp-header">Why film fans trust Legacy Lens</p>
+        <div class="sp-list">
+          <div class="sp-item">
+            <span class="sp-num">83K</span>
+            <span class="sp-text">views in a single week on one breakdown video</span>
+          </div>
+          <div class="sp-item">
+            <span class="sp-num">844</span>
+            <span class="sp-text">new followers in 8 days — organic, no ads</span>
+          </div>
+          <div class="sp-item">
+            <span class="sp-num">★★★★★</span>
+            <span class="sp-text">trusted by film theory fans who actually care about the craft</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────────── -->
+  <footer>
+    <div class="wrap">
+      <p class="footer-brand">Legacy Lens</p>
+      <nav class="footer-links">
+        <a href="mailto:hello@legacylens.com">Contact</a>
+        <a href="#">Privacy</a>
+        <a href="#">Unsubscribe</a>
+      </nav>
+    </div>
+  </footer>
+
+
+</body>
+</html>
