@@ -308,6 +308,49 @@
 
     .footer-links a:hover { color: var(--gold); }
 
+    /* ── Subscribe Form ────────────────────────────────────── */
+    .subscribe-form { width: 100%; }
+
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .email-input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 1rem;
+      font-family: var(--font);
+      background: #0a0a0c;
+      color: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    .email-input::placeholder { color: var(--muted); }
+    .email-input:focus { border-color: var(--gold); }
+
+    .subscribe-btn {
+      width: 100%;
+      padding: 14px 20px;
+      font-size: 1rem;
+      font-family: var(--font);
+      font-weight: 700;
+      letter-spacing: .05em;
+      background: var(--gold);
+      color: #0a0a0c;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+    }
+
+    .subscribe-btn:hover { background: #e0b85a; }
+    .subscribe-btn:active { transform: scale(.98); }
+
     /* ── Utilities ──────────────────────────────────────────── */
     .visually-hidden {
       position: absolute;
@@ -373,7 +416,21 @@
           -->
           <div class="beehiiv-embed-wrap">
 
-            <iframe src="https://subscribe-forms.beehiiv.com/33599df8-e72a-404e-986e-4a1918c1e6a4" class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" style="width: 100%; height: 315px; margin: 0; border-radius: 0px !important; background-color: transparent; box-shadow: 0 0 #0000; max-width: 100%;"></iframe>
+            <form class="subscribe-form" action="https://app.beehiiv.com/subscribe" method="post" target="_blank">
+              <input type="hidden" name="publication_id" value="33599df8-e72a-404e-986e-4a1918c1e6a4" />
+              <input type="hidden" name="referring_source" value="legacylens-landingpage" />
+              <div class="form-row">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  required
+                  class="email-input"
+                  autocomplete="email"
+                />
+                <button type="submit" class="subscribe-btn">Subscribe</button>
+              </div>
+            </form>
 
           </div>
 
